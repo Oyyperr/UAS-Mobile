@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    tools:context=".LapanganActivity">
+
+    <!-- Nama Lapangan -->
+    <TextView
+        android:id="@+id/tvNamaLapangan"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Nama Lapangan"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <!-- Lokasi Lapangan -->
+    <TextView
+        android:id="@+id/tvLokasi"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Lokasi"
+        android:textSize="14sp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvNamaLapangan"/>
+
+    <!-- Harga Lapangan -->
+    <TextView
+        android:id="@+id/tvHarga"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Rp 0"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvLokasi"/>
+
+    <!-- Tombol Book Now -->
+    <Button
+        android:id="@+id/btnBookNow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Book Now"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvHarga"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Tombol Favorite -->
+    <Button
+        android:id="@+id/btnFavorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add to Favorite"
+        android:textColor="@android:color/white"
+        android:background="@android:color/holo_red_light"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnBookNow"
+        android:layout_marginTop="16dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
