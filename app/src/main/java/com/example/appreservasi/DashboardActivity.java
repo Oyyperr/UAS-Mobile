@@ -55,10 +55,10 @@ public class DashboardActivity extends AppCompatActivity {
         });
 
         // Tombol Daftar Favorit
-        btnFavorit.setOnClickListener(v -> {
-            Intent intent = new Intent(DashboardActivity.this, FavoritActivity.class);
-            startActivity(intent);
-        });
+        //btnFavorit.setOnClickListener(v -> {
+           // Intent intent = new Intent(DashboardActivity.this );
+          //  startActivity(intent);
+       // });
 
         // Tombol Logout
         btnLogout.setOnClickListener(v -> {

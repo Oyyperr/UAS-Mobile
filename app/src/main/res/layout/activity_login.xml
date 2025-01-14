@@ -30,5 +30,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Belum punya akun? Daftar di sini"
-        android:textColor="@android:color/holo_blue_light" />
+        android:textColor="@android:color/holo_blue_light"
+        android:layout_marginTop="16dp" />
 </LinearLayout>

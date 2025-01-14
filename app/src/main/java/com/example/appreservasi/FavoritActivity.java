@@ -1,102 +1,74 @@
-package com.example.appreservasi;
+/*package com.example.appreservasi;
 
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
+import com.example.appreservasi.Lapangan;
+import com.example.appreservasi.LapanganAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class FavoritActivity extends AppCompatActivity {
 
-    private ListView listView;
+    private RecyclerView recyclerView;
     private LapanganAdapter adapter;
-    private List<Lapangan> lapanganList = new ArrayList<>();
-    private int userId;  // To store user ID
+    private List<Lapangan> lapanganFavoritList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorit);
 
-        // Get the user_id from the Intent
-        userId = getIntent().getIntExtra("user_id", -1);
+        recyclerView = findViewById(R.id.recyclerViewFavorit);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        listView = findViewById(R.id.listViewFavorit);
+        lapanganFavoritList = new ArrayList<>();
 
-        // Initialize the adapter and set the listener
-        adapter = new LapanganAdapter(lapanganList, new LapanganAdapter.OnLapanganClickListener() {
+        // Load lapangan favorit dari SharedPreferences
+        loadFavorit();
+
+        // Setup the adapter
+        adapter = new LapanganAdapter(lapanganFavoritList, new LapanganAdapter.OnLapanganClickListener() {
             @Override
             public void onItemClick(Lapangan lapangan) {
-                Intent intent = new Intent(FavoritActivity.this, ReservasiActivity.class);
-                intent.putExtra("lapangan_id", lapangan.getId());
-                intent.putExtra("nama_lapangan", lapangan.getNamaLapangan());
-                intent.putExtra("user_id", getUserId());  // Pass userId to ReservasiActivity
-                startActivity(intent);
+                // Implement action when user clicks on an item
+                Toast.makeText(FavoritActivity.this, "Lapangan: " + lapangan.getNamaLapangan(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public int getUserId() {
-                return userId;  // Return the user ID
+                return 0;  // Modify as needed for your app
             }
-        }, FavoritActivity.this);  // Pass the context
+        }, this);
 
-        // Set the adapter to the ListView
-        listView.setAdapter(adapter);
-
-        // Load the list of favorite lapangan
-        loadFavorit();
+        // Set the adapter for RecyclerView
+        recyclerView.setAdapter(adapter);
     }
 
     private void loadFavorit() {
-        String url = "http://10.0.2.2/reservasi_badminton/get_favorit.php?user_id=" + userId;  // Your server URL
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        try {
-                            if (response.length() > 0) {
-                                for (int i = 0; i < response.length(); i++) {
-                                    JSONObject lapanganObj = response.getJSONObject(i);
-                                    String namaLapangan = lapanganObj.getString("nama_lapangan");
-                                    String lokasi = lapanganObj.getString("lokasi");
-                                    double harga = lapanganObj.getDouble("harga");
-                                    String status = lapanganObj.getString("status");
-                                    int id = lapanganObj.getInt("id");
+        SharedPreferences preferences = getSharedPreferences("UserFavorites", MODE_PRIVATE);
+        // Load favorite lapangan from SharedPreferences
+        for (int i = 0; i < 100; i++) {  // Loop through possible favorite lapangan
+            int lapanganId = preferences.getInt("fav_lapangan_" + i, -1);
+            if (lapanganId != -1) {  // If lapangan exists in favorites
+                String name = preferences.getString("fav_lapangan_name_" + i, "Unknown");
+                String location = preferences.getString("fav_lapangan_location_" + i, "Unknown");
+                double price = preferences.getFloat("fav_lapangan_price_" + i, 0);
+                String status = preferences.getString("fav_lapangan_status_" + i, "Unknown");
 
-                                    Lapangan lapangan = new Lapangan(id, namaLapangan, lokasi, harga, status);
-                                    lapanganList.add(lapangan);
-                                }
-                                // Notify the adapter to refresh the list
-                                adapter.notifyDataSetChanged();
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(FavoritActivity.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                Lapangan lapangan = new Lapangan(lapanganId, name, location, price, status);
+                lapanganFavoritList.add(lapangan);
+            }
+        }
 
-        // Add the request to the queue
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(request);
+        // Notify the adapter that data has been loaded
+        adapter.notifyDataSetChanged();
     }
 }
+*/
